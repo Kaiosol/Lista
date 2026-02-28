@@ -35,7 +35,5 @@ function notificar() {
                 }
             })
         }
-    } else {
-        console.log("Não tem como aparecer sem tu permitir, cara!")
     }
 }
