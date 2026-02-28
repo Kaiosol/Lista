@@ -1,5 +1,10 @@
-function adicionarTarefa(){
-    let item = document.querySelector("input").value
+function adicionarTarefa() {
+    let item = document.querySelector("input").value.trim();
+
+    if (item === "") {
+        notificar()
+        return;
+    }
 
     let li = document.createElement("li")
     li.innerHTML = item + "<span onclick='excluir(this)' >❌</span>"
@@ -7,7 +12,30 @@ function adicionarTarefa(){
 
     document.querySelector("input").value
     // <li> </li>
+    document.querySelector("input").value = "";
 }
-function excluir(li){
+function excluir(li) {
     li.parentElement.remove()
+}
+
+function esvaziar() {
+    input.value("");
+}
+
+function notificar() {
+    if ("Notification" in window) {
+        if (Notification.permission == "granted") {
+            new Notification("Por favor, digite uma tarefa para adicionar!")
+        } else {
+            Notification.requestPermission().then((res) => {
+                if (res == "granted") {
+                    return
+                } else if (res == "denied") {
+                    console.log("Você negou.")
+                }
+            })
+        }
+    } else {
+        console.log("Não tem como aparecer sem tu permitir, cara!")
+    }
 }
